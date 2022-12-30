@@ -1,2 +1,1 @@
-sudo apt install qt6-base-dev inslall QT
-make
+In this project, a program for viewing 3D models in a wireframe (3D Viewer) is implemented in the C programming language. The models themselves must be loaded from .obj files and be able to view them on the screen with the ability to rotate, scale and move.

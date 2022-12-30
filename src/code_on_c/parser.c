@@ -328,10 +328,9 @@ void recordVertex(char *line, vertex_st *vertex) {
  * @return reading success
  */
 int reading(char *filename, vertex_index_st *data) {
-  int resultFunc = 0;
   int countVertex = 0;
   int countIndex = 0;
-  char line[256];
+  char line[512];
   FILE *fp;
 
   if ((fp = fopen(filename, "r")) != NULL) {
@@ -349,10 +348,10 @@ int reading(char *filename, vertex_index_st *data) {
     fclose(fp);
   } else {
     printf("File not found!\n");
-    resultFunc = 1;
+    return 1;
   }
 
-  return resultFunc;
+  return 0;
 }
 
 /**
@@ -412,7 +411,8 @@ void fillData(vertex_index_st *data) {
  * @param pointer to string file name
  */
 vertex_index_st *getData(char *filename) {
-  vertex_index_st *data = malloc(1 * sizeof(vertex_index_st));
+  vertex_index_st *data = calloc(1, sizeof(vertex_index_st));
+  printf("%s\n", filename);
   if (reading(filename, data) == 0) {
     fillData(data);
     record(filename, data);

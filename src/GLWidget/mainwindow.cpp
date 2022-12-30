@@ -62,9 +62,10 @@ void MainWindow::on_openFile_clicked() {
   std::string strName = fileName.toStdString();
 
   if (strName.size() > 0) {
-    char *name = (char *)calloc(strName.size(), sizeof(char));
+    char *name = (char *)calloc(strName.size()+1, sizeof(char));
     for (int i = 0; i < fileName.size(); i++) {
       name[i] = strName[i];
+      name[i+1] = '\0';
     }
     ui->fileName->setText(fileName);
 
