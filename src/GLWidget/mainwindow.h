@@ -4,6 +4,7 @@
 #include <glwidget.h>
 #include <QMainWindow>
 #include <QFileDialog>
+#include <QMouseEvent>
 
 
 QT_BEGIN_NAMESPACE
@@ -40,10 +41,17 @@ private slots:
     void on_bL_valueChanged();
     void on_widthLine_valueChanged();
     void on_widthVertex_valueChanged();
+    void mouseDoubleClickEvent(QMouseEvent *event) override;
+    void mouseMoveEvent(QMouseEvent *event) override;
+    void mousePressEvent(QMouseEvent *event) override;
+    void mouseReleaseEvent(QMouseEvent *event) override;
+    void wheelEvent(QWheelEvent *event)override;
 
-private:
+   private:
     Ui::MainWindow *ui;
     GLWidget *glwidget;
+    double pos_mouse_x;
+    double pos_mouse_y;
 
 public:
     state_st *getState();

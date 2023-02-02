@@ -14,11 +14,9 @@ MainWindow::MainWindow(QWidget *parent)
   //    glwidget->show();
   ui->setupUi(this);
   connect(this, &MainWindow::setState, ui->openGLWidget, &GLWidget::setState);
-  connect(this, &MainWindow::setFilename, ui->openGLWidget,
-          &GLWidget::setFilename);
+  connect(this, &MainWindow::setFilename, ui->openGLWidget, &GLWidget::setFilename);
   connect(this, &MainWindow::setLook, ui->openGLWidget, &GLWidget::setLook);
-  connect(this, &MainWindow::setProjection, ui->openGLWidget,
-          &GLWidget::setProjection);
+  connect(this, &MainWindow::setProjection, ui->openGLWidget, &GLWidget::setProjection);
 }
 
 MainWindow::~MainWindow() { delete ui; }
@@ -40,17 +38,17 @@ state_st *MainWindow::getState() {
   return state;
 }
 
-void MainWindow::on_rotation_x_valueChanged() { emit setState(getState()); }
+void MainWindow::on_rotation_x_valueChanged() {if(ui->fileName->text() != "") emit setState(getState()); }
 
-void MainWindow::on_rotation_y_valueChanged() { emit setState(getState()); }
+void MainWindow::on_rotation_y_valueChanged() {if(ui->fileName->text() != "") emit setState(getState()); }
 
-void MainWindow::on_rotation_z_valueChanged() { emit setState(getState()); }
+void MainWindow::on_rotation_z_valueChanged() {if(ui->fileName->text() != "") emit setState(getState()); }
 
-void MainWindow::on_transfer_x_valueChanged() { emit setState(getState()); }
+void MainWindow::on_transfer_x_valueChanged() {if(ui->fileName->text() != "") emit setState(getState()); }
 
-void MainWindow::on_transfer_y_valueChanged() { emit setState(getState()); }
+void MainWindow::on_transfer_y_valueChanged() {if(ui->fileName->text() != "") emit setState(getState()); }
 
-void MainWindow::on_scale_valueChanged() { emit setState(getState()); }
+void MainWindow::on_scale_valueChanged() {if(ui->fileName->text() != "") emit setState(getState()); }
 
 /**
  * @brief will take the name and send it to rendering
@@ -132,3 +130,37 @@ void MainWindow::on_bL_valueChanged() { emit setLook(getLook()); }
 void MainWindow::on_widthLine_valueChanged() { emit setLook(getLook()); }
 
 void MainWindow::on_widthVertex_valueChanged() { emit setLook(getLook()); }
+
+void MainWindow::mouseDoubleClickEvent(QMouseEvent *event)
+{
+    ui->test->setText("Double click");
+}
+
+void MainWindow::mouseMoveEvent(QMouseEvent *event)
+{
+    ui->test->setText("Mouse move");
+    ui->rotation_x->setValue((pos_mouse_y - event->y()) / 100);
+    ui->rotation_y->setValue((pos_mouse_y - event->x()) / 100);
+    ui->event_x->setText(QString::number(pos_mouse_x - event->x()));
+    ui->event_y->setText(QString::number(pos_mouse_y - event->y()));
+}
+
+void MainWindow::mousePressEvent(QMouseEvent *event)
+{
+    ui->test->setText("Mouse press");
+    pos_mouse_x = event->x();
+    pos_mouse_y = event->y();
+}
+
+void MainWindow::mouseReleaseEvent(QMouseEvent *event)
+{
+    pos_mouse_x = event->x();
+    pos_mouse_y = event->y();
+    ui->test->setText("Mouse Release");
+}
+
+void MainWindow::wheelEvent(QWheelEvent *event)
+{
+//    ui->wheel->setText(QString::number(event->));
+
+}
