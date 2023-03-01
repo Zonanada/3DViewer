@@ -2,8 +2,6 @@ CC = gcc
 FLAGS = -Wall -Werror -Wextra -std=c11 # -g -fsanitize=address
 TEST_FLAGS = -lcheck -lm -lpthread
 FLAG_COV = -lcheck -lgcov -fprofile --coverage
-TARGET = GLWidget
-TAR = GLWidget.tar.gz
 ifeq ($(shell uname), Linux)
 	TEST_FLAGS += -lrt -lsubunit
 	FLAG_COV = -lcheck -lgcov -lm -lpthread -lsubunit --coverage
@@ -27,7 +25,7 @@ gcov_report: test
 	lcov -t "gcov_report" -o gcov_report.info -c -d ./
 	genhtml -o report gcov_report.info
 	open ./report/index.html
-	rm -fr parser.o s21_3DViever.a test *.gcda *.gcno gcov_report.info
+	rm -fr s21_3DViever.a test *.gcda *.gcno gcov_report.info
 
 .PHONY: test
 test: s21_smart_calc.a
